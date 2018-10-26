@@ -1,6 +1,8 @@
 package com.uam.aps.response;
 
-public class ClientResponse {
+import java.io.Serializable;
+
+public class ClientResponse implements Serializable {
 	
 	private String name;
 	
@@ -8,6 +10,11 @@ public class ClientResponse {
 	
 	private Integer age;
 	
+	private String message;
+	
+	public ClientResponse() {
+		
+	}
 	
 	public String getName() {
 		return name;
@@ -25,11 +32,19 @@ public class ClientResponse {
 		this.cpf = cpf;
 	}
 
-	public Integer getIdade() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setIdade(Integer idade) {
-		this.age = idade;
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

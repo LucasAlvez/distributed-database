@@ -4,13 +4,14 @@ import java.io.Serializable;
 
 public class ClientRequest implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
-
 	private String name;
 	
 	private String cpf;
 	
 	private Integer age;
+	
+	public ClientRequest() {
+	}
 	
 	public ClientRequest (String name, String cpf, Integer age) {
 		this.name = name;
@@ -34,11 +35,11 @@ public class ClientRequest implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public Integer getIdade() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setIdade(Integer idade) {
+	public void setAge(Integer idade) {
 		this.age = idade;
 	}
 }
