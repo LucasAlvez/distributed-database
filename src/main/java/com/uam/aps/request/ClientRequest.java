@@ -8,7 +8,11 @@ public class ClientRequest implements Serializable {
 	
 	private String cpf;
 	
+	private String cpfAux;
+	
 	private Integer age;
+	
+	private Integer operation;
 	
 	public ClientRequest() {
 	}
@@ -34,6 +38,14 @@ public class ClientRequest implements Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	public String getCpfAux() {
+		return cpfAux;
+	}
+	
+	public void setCpfAux(String cpfAux) {
+		this.cpfAux = cpfAux;
+	}
 
 	public Integer getAge() {
 		return age;
@@ -41,5 +53,13 @@ public class ClientRequest implements Serializable {
 
 	public void setAge(Integer idade) {
 		this.age = idade;
+	}
+	
+	public Integer getOperation() {
+		return operation;
+	}
+	
+	public void setOperation(Integer operation) {
+		this.operation = operation;
 	}
 }

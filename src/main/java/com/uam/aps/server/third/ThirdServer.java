@@ -1,17 +1,17 @@
-package com.uam.aps.server;
+package com.uam.aps.server.third;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import com.uam.aps.connection.Connection;
 
-public class Server3 {
+public class ThirdServer {
 
 	static ServerSocket serversocket;
 	static Socket client_socket;
 	static Connection connect;
 
-	public Server3() {
+	public ThirdServer() {
 		try {
 			serversocket = new ServerSocket(9400);
 			System.out.println("Servidor no ar!!!");

@@ -2,20 +2,22 @@ package com.uam.aps.response;
 
 import java.io.Serializable;
 
+import com.uam.aps.status.StatusEnum;
+
 public class ClientResponse implements Serializable {
-	
+
 	private String name;
-	
+
 	private String cpf;
-	
+
 	private Integer age;
-	
-	private String message;
-	
+
+	private StatusEnum message;
+
 	public ClientResponse() {
-		
+
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -39,12 +41,12 @@ public class ClientResponse implements Serializable {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	
-	public String getMessage() {
+
+	public StatusEnum getMessage() {
 		return message;
 	}
 	
-	public void setMessage(String message) {
+	public void setMessage(StatusEnum message) {
 		this.message = message;
 	}
 }
