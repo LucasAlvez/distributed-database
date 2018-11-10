@@ -68,10 +68,17 @@ public class ServerController {
 			// Envia esta resposta para a app
 			Connection.send(app_socket, response);
 		} else {
+			System.out.println("Primeiro servidor está fora do ar");
+		}
+
+		if (secondServer_socket.getKeepAlive()) {
 			Connection.send(secondServer_socket, request);
 			Object response = (Object) Connection.receive(secondServer_socket);
 			Connection.send(app_socket, response);
+		} else {
+			System.out.println("Segundo servidor está fora do ar");
 		}
+
 	}
 
 	public static boolean connect() {

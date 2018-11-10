@@ -17,7 +17,7 @@ public class SecondServer {
 	public SecondServer() {
 		try {
 			secondServer_socket = new ServerSocket(9323);
-			System.out.println("Server2 no ar!!!\nAguardando app fazer requisiçao ...");
+			System.out.println("Server2 no ar!!!\nAguardando ServerController fazer requisiçao ...");
 		} catch (Exception e) {
 			System.out.println("Nao criei o server socket...");
 		}
