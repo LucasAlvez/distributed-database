@@ -7,7 +7,7 @@ public enum StatusEnum {
 	NAO_ENCONTRADO("2", "Busca não retornou nenhum resultado"),
 	TEMPO_EXCEDIDO("3", "Processamento demorou mais do que o esperado"),
 	ERRO_SERVIDOR("10", "Dificuldade de processamento do servidor. Necessário acessar outro"),
-	REQUISIÇÃO_INVALIDA("11", "Erro na requisição");
+	REQUISICAO_INVALIDA("11", "Erro na requisição");
 	
 	private final String code;
 	private final String name;

@@ -42,7 +42,7 @@ public class ClientDAO {
 
 			return Builder.clientBuild(request, StatusEnum.SUCESSO);
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISIÇÃO_INVALIDA);
+			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 	}
 
@@ -62,7 +62,7 @@ public class ClientDAO {
 				}
 			}
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISIÇÃO_INVALIDA);
+			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 		return null;
 	}
@@ -98,7 +98,7 @@ public class ClientDAO {
 				return Builder.clientBuildError(request, StatusEnum.NAO_ENCONTRADO);
 			}
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISIÇÃO_INVALIDA);
+			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 		return null;
 	}
@@ -132,7 +132,7 @@ public class ClientDAO {
 			writer.close();
 			return Builder.clientBuild(request, StatusEnum.SUCESSO);
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISIÇÃO_INVALIDA);
+			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 	}
 	
