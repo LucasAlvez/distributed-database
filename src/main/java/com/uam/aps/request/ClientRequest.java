@@ -17,10 +17,12 @@ public class ClientRequest implements Serializable {
 	public ClientRequest() {
 	}
 	
-	public ClientRequest (String name, String cpf, Integer age) {
+	public ClientRequest (String name, String cpf, String cpfAux, Integer age, Integer operation) {
 		this.name = name;
 		this.cpf = cpf;
+		this.cpfAux = cpfAux;
 		this.age = age;
+		this.operation = operation;
 	}
 	
 	public String getName() {

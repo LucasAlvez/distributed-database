@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.uam.aps.request.ClientRequest;
-import com.uam.aps.response.ClientResponse;
+import com.uam.aps.request.EmployeeRequest;
+import com.uam.aps.response.EmployeeResponse;
 import com.uam.aps.status.StatusEnum;
 import com.uam.aps.utils.Builder;
 
-public class ClientDAO {
+public class EmployeeDAO {
 
 	@SuppressWarnings({ "unchecked", "resource" })
-	public static ClientResponse create(ClientRequest request, String path) throws IOException {
+	public static EmployeeResponse create(EmployeeRequest request, String path) throws IOException {
 		Gson gsonWrtiter = new Gson();
 		Gson gsonReader = new Gson();
 
@@ -27,17 +27,17 @@ public class ClientDAO {
 
 		if (request != null) {
 			// Converte String JSON para objeto Java
-			List<ClientRequest> list = new ArrayList<>();
+			List<EmployeeRequest> list = new ArrayList<>();
 			list = gsonReader.fromJson(br, ArrayList.class);
 			br.close();
 			
-			ClientRequest[] listAux = gsonReader.fromJson(brTwo, ClientRequest[].class);
+			EmployeeRequest[] listAux = gsonReader.fromJson(brTwo, EmployeeRequest[].class);
 			brTwo.close();
-
+			
 			if (listAux.length > 0) {
 				for (int i = 0; i < listAux.length; i++) {
 					if (listAux[i].getCpf().equals(request.getCpf())) {
-						return Builder.clientBuildError(listAux[i], StatusEnum.CADASTRO_EXISTENTE);
+						return Builder.employeeBuildError(listAux[i], StatusEnum.CADASTRO_EXISTENTE);
 					} else {
 						list.add(request);
 					}
@@ -54,46 +54,46 @@ public class ClientDAO {
 			writer.write(json);
 			writer.close();
 
-			return Builder.clientBuild(request, StatusEnum.SUCESSO);
+			return Builder.employeeBuild(request, StatusEnum.SUCESSO);
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
+			return Builder.employeeBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 	}
 
 	@SuppressWarnings("unused")
-	public static ClientResponse read(ClientRequest request, String path) throws IOException {
+	public static EmployeeResponse read(EmployeeRequest request, String path) throws IOException {
 		Gson gson = new Gson();
 
 		if (request != null && request.getCpfAux() != "") {
 			BufferedReader br = new BufferedReader(new FileReader(path));
-			ClientRequest[] list = gson.fromJson(br, ClientRequest[].class);
+			EmployeeRequest[] list = gson.fromJson(br, EmployeeRequest[].class);
 			br.close();
-
+			
 			if (list.length > 0) {
 				for (int i = 0; i < list.length; i++) {
 					if (list[i].getCpf().equals(request.getCpf())) {
-						return Builder.clientBuild(list[i], StatusEnum.SUCESSO);
+						return Builder.employeeBuild(list[i], StatusEnum.SUCESSO);
 					} else {
-						return Builder.clientBuildError(request, StatusEnum.NAO_ENCONTRADO);
+						return Builder.employeeBuildError(request, StatusEnum.NAO_ENCONTRADO);
 					}
 				}
 			} else {
-				return Builder.clientBuildError(request, StatusEnum.NAO_ENCONTRADO);
+				return Builder.employeeBuildError(request, StatusEnum.NAO_ENCONTRADO);
 			}
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
+			return Builder.employeeBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 		return null;
 	}
 
-	@SuppressWarnings({ "unused" })
-	public static ClientResponse update(ClientRequest request, String path) throws IOException {
+	@SuppressWarnings({ "unused"})
+	public static EmployeeResponse update(EmployeeRequest request, String path) throws IOException {
 		Gson gson = new Gson();
 
 		if (request != null && request.getCpfAux() != "") {
 			BufferedReader br = new BufferedReader(new FileReader(path));
-
-			ClientRequest[] list = gson.fromJson(br, ClientRequest[].class);
+			
+			EmployeeRequest[] list = gson.fromJson(br, EmployeeRequest[].class);
 			br.close();
 
 			if (list.length > 0) {
@@ -102,64 +102,66 @@ public class ClientDAO {
 						list[i].setName(request.getName());
 						list[i].setCpf(request.getCpf());
 						list[i].setCpfAux(request.getCpf());
-						list[i].setAge(request.getAge());
+						list[i].setResponsibility(request.getResponsibility());
+						list[i].setSalary(request.getSalary());
 						list[i].setOperation(request.getOperation());
 						String json = gson.toJson(list);
 
 						Writer writer = new BufferedWriter(new FileWriter(path, false));
 						writer.write(json);
 						writer.close();
-
-						return Builder.clientBuild(list[i], StatusEnum.SUCESSO);
+						
+						return Builder.employeeBuild(list[i], StatusEnum.SUCESSO);
 					} else {
-						return Builder.clientBuildError(request, StatusEnum.NAO_ENCONTRADO);
+						return Builder.employeeBuildError(request, StatusEnum.NAO_ENCONTRADO);
 					}
 				}
 			} else {
-				return Builder.clientBuildError(request, StatusEnum.NAO_ENCONTRADO);
+				return Builder.employeeBuildError(request, StatusEnum.NAO_ENCONTRADO);
 			}
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
+			return Builder.employeeBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 		return null;
 	}
 
-	public static ClientResponse delete(ClientRequest request, String path) throws IOException {
+	public static EmployeeResponse delete(EmployeeRequest request, String path) throws IOException {
 		Gson gson = new Gson();
 		String json = "";
 
 		if (request != null && request.getCpfAux() != "") {
 			BufferedReader br = new BufferedReader(new FileReader(path));
 
-			ClientResponse[] list = gson.fromJson(br, ClientResponse[].class);
+			EmployeeResponse[] list = gson.fromJson(br, EmployeeResponse[].class);
 			br.close();
 
 			if (list.length > 0) {
-				List<ClientResponse> response = new ArrayList<>();
+				List<EmployeeResponse> response = new ArrayList<>();
 				for (int i = 0; i < list.length; i++) {
 					response.add(list[i]);
 					if (list[i].getCpf().equals(request.getCpf())) {
 						request.setName(list[i].getName());
 						request.setCpf(list[i].getCpf());
 						request.setCpfAux(request.getCpf());
-						request.setAge(list[i].getAge());
+						request.setResponsibility(list[i].getResponsibility());
+						request.setSalary(list[i].getSalary());
 						response.remove(list[i]);
 						json = gson.toJson(response);
 					} else {
-						return Builder.clientBuildError(request, StatusEnum.NAO_ENCONTRADO);
+						return Builder.employeeBuildError(request, StatusEnum.NAO_ENCONTRADO);
 					}
 				}
 			} else {
-				return Builder.clientBuildError(request, StatusEnum.NAO_ENCONTRADO);
+				return Builder.employeeBuildError(request, StatusEnum.NAO_ENCONTRADO);
 			}
 
 			Writer writer = new BufferedWriter(new FileWriter(path, false));
 			writer.write(json);
 			writer.close();
-
-			return Builder.clientBuild(request, StatusEnum.SUCESSO);
+			
+			return Builder.employeeBuild(request, StatusEnum.SUCESSO);
 		} else {
-			return Builder.clientBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
+			return Builder.employeeBuildError(request, StatusEnum.REQUISICAO_INVALIDA);
 		}
 	}
 

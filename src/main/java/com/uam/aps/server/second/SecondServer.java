@@ -6,7 +6,9 @@ import java.net.Socket;
 
 import com.uam.aps.connection.Connection;
 import com.uam.aps.dao.ClientDAO;
+import com.uam.aps.dao.EmployeeDAO;
 import com.uam.aps.request.ClientRequest;
+import com.uam.aps.request.EmployeeRequest;
 import com.uam.aps.utils.Path;
 
 public class SecondServer {
@@ -17,7 +19,7 @@ public class SecondServer {
 	public SecondServer() {
 		try {
 			secondServer_socket = new ServerSocket(9323);
-			System.out.println("Server2 no ar!!!\nAguardando ServerController fazer requisiçao ...");
+			System.out.println("Servidor 2 no ar!!!\nAguardando ServerController enviar requisiçao ...");
 		} catch (Exception e) {
 			System.out.println("Nao criei o server socket...");
 		}
@@ -37,8 +39,12 @@ public class SecondServer {
 					clientRequest = (ClientRequest) request;
 					clientCRUD(clientRequest);
 				}
-				System.out.println("Estou no SecondServer");
 
+				if (request.getClass().getName().equals(Path.EMPLOYEECLASS)) {
+					EmployeeRequest employeeRequest = new EmployeeRequest();
+					employeeRequest = (EmployeeRequest) request;
+					employeeCRUD(employeeRequest);
+				}
 			} else {
 				try {
 					secondServer_socket.close();
@@ -62,6 +68,21 @@ public class SecondServer {
 			Connection.send(server_controller, ClientDAO.read(clientRequest, Path.SECOND_SERVER_CLIENT));
 		} else if (clientRequest.getOperation() == 4) {
 			Connection.send(server_controller, ClientDAO.delete(clientRequest, Path.SECOND_SERVER_CLIENT));
+		} else {
+			System.out.println("Erro no CRUD");
+		}
+	}
+
+	public static void employeeCRUD(EmployeeRequest employeeRequest) throws IOException {
+		if (employeeRequest.getOperation() == 1) {
+			employeeRequest.setCpfAux(employeeRequest.getCpf());
+			Connection.send(server_controller, EmployeeDAO.create(employeeRequest, Path.SECOND_SERVER_EMPLOYEE));
+		} else if (employeeRequest.getOperation() == 2) {
+			Connection.send(server_controller, EmployeeDAO.update(employeeRequest, Path.SECOND_SERVER_EMPLOYEE));
+		} else if (employeeRequest.getOperation() == 3) {
+			Connection.send(server_controller, EmployeeDAO.read(employeeRequest, Path.SECOND_SERVER_EMPLOYEE));
+		} else if (employeeRequest.getOperation() == 4) {
+			Connection.send(server_controller, EmployeeDAO.delete(employeeRequest, Path.SECOND_SERVER_EMPLOYEE));
 		} else {
 			System.out.println("Erro no CRUD");
 		}
