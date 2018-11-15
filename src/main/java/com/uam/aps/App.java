@@ -12,6 +12,7 @@ import com.uam.aps.response.ClientResponse;
 import com.uam.aps.response.EmployeeResponse;
 import com.uam.aps.response.ProductResponse;
 import com.uam.aps.utils.Builder;
+import com.uam.aps.utils.FileManager;
 import com.uam.aps.utils.Menu;
 
 public class App {
@@ -28,6 +29,8 @@ public class App {
 
 	public static void main(String[] args) throws IOException {
 		in = new Scanner(System.in);
+		
+		FileManager.InitializeFiles();
 
 		while (true) {
 			System.out.println("\nEscolha:");
